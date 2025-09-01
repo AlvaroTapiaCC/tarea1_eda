@@ -1,0 +1,3 @@
+/home/eda/tarea1/cpp/build/CMakeFiles/main.dir
+/home/eda/tarea1/cpp/build/CMakeFiles/edit_cache.dir
+/home/eda/tarea1/cpp/build/CMakeFiles/rebuild_cache.dir
