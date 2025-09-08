@@ -24,12 +24,12 @@ struct experimentResult {
 
 class SimSearch{
 private:
-    const Matrix &mat_data; // data to be processed
-    const Matrix &mat_queries;
-    // const Matrix &mat_clusters;  centroids to be used
+    const Matrix &mat_data;         // data to be processed
+    const Matrix &mat_queries;      // queries  
+    const Matrix &mat_clusters;     // centroids to be used
 
 public:
-    SimSearch(const Matrix &data, const Matrix &queries) : mat_data(data), mat_queries(queries) {};
+    SimSearch(const Matrix &data, const Matrix &queries, const Matrix &clusters) : mat_data(data), mat_queries(queries), mat_clusters(clusters) {};
     queryResult directSearch (const float* query, int m);
     queryResult searchWithClusters (const float*, int m, int k);
     experimentResult runExperiment (int m, int k);

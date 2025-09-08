@@ -3,6 +3,7 @@
 
 CMakeFiles/main.dir/main.cpp.o
  /home/eda/tarea1/cpp/main.cpp
+ /home/eda/tarea1/cpp/include/cluster.hpp
  /home/eda/tarea1/cpp/include/matrix.hpp
  /home/eda/tarea1/cpp/include/simsearch.hpp
  /usr/include/alloca.h

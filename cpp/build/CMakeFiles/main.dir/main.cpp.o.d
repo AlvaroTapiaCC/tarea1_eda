@@ -145,9 +145,10 @@ CMakeFiles/main.dir/main.cpp.o: /home/eda/tarea1/cpp/main.cpp \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
  /home/eda/tarea1/cpp/include/matrix.hpp \
- /home/eda/tarea1/cpp/include/simsearch.hpp \
+ /home/eda/tarea1/cpp/include/cluster.hpp \
  /home/eda/tarea1/cpp/include/matrix.hpp /usr/include/c++/13/vector \
  /usr/include/c++/13/bits/stl_uninitialized.h \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
- /usr/include/c++/13/bits/vector.tcc
+ /usr/include/c++/13/bits/vector.tcc \
+ /home/eda/tarea1/cpp/include/simsearch.hpp
