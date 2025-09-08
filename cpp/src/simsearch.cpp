@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <vector>
+#include <fstream>
 #include "matrix.hpp"
 #include "utils.hpp"
 #include "simsearch.hpp"
@@ -19,6 +20,7 @@ queryResult SimSearch::directSearch(const float* query, int m) {
     result.time_no_sort = 0;
     result.time_total = 0;
     result.neighbors.reserve(m);
+    result.neighbors_idxs.reserve(m);
     result.avg_distance = 0.0;
 
     auto start_srch = high_resolution_clock::now();
@@ -45,6 +47,7 @@ queryResult SimSearch::directSearch(const float* query, int m) {
     float total_dist = 0.0;
     for (int i = 0; i < m; i++) {
         result.neighbors.push_back(mat_data.getRow(indexes[i]));
+        result.neighbors_idxs.push_back(indexes[i]);
         total_dist += distances[i];
     }
     result.avg_distance = total_dist / m;
@@ -54,7 +57,7 @@ queryResult SimSearch::directSearch(const float* query, int m) {
     return result;
 }
 
-queryResult SimSearch::searchWithClusters(const float* query, int m, int k) {
+queryResult SimSearch::searchWithClusters(const float* query, int m) {
     size_t N = mat_data.getN();
     size_t K = mat_clusters.getN();
     size_t dim = mat_data.getDim();
@@ -71,6 +74,7 @@ queryResult SimSearch::searchWithClusters(const float* query, int m, int k) {
     result.time_no_sort = 0;
     result.time_total = 0;
     result.neighbors.reserve(m);
+    result.neighbors_idxs.reserve(m);
     result.avg_distance = 0.0;
 
     auto start_srch = high_resolution_clock::now();
@@ -121,6 +125,7 @@ queryResult SimSearch::searchWithClusters(const float* query, int m, int k) {
         
         for (int i = 0; i < m; i++) {
             result.neighbors.push_back(mat_data.getRow(indexes[i]));
+            result.neighbors_idxs.push_back(indexes[i]);
             total_dist += distances[i];
         }
     } else {
@@ -168,12 +173,10 @@ queryResult SimSearch::searchWithClusters(const float* query, int m, int k) {
 
         for (int i = 0; i < m; i++) {
             result.neighbors.push_back(mat_data.getRow(indexes[i]));
+            result.neighbors_idxs.push_back(indexes[i]);
             total_dist += distances[i];
         }
     }
-
-    auto end_srch = high_resolution_clock::now();
-    auto srch_time = duration_cast<microseconds>(end_srch - start_srch).count();
 
     result.avg_distance = total_dist / m;
 
@@ -205,8 +208,17 @@ experimentResult SimSearch::runExperiment(int m, int k) {
         if (k == 0) {
             qr = directSearch(query, m);
         } else {
-            qr = searchWithClusters(query, m, k);
+            qr = searchWithClusters(query, m);
         }
+
+        if (q == 0) {
+            ofstream fout("../../metrics/neighbors.csv");
+            for (size_t i = 0; i < qr.neighbors_idxs.size(); i++) {
+                fout << qr.neighbors_idxs[i] << "\n";
+            }
+            fout.close();
+        }
+
         result.total_comparisons += qr.comparisons;
         result.time_no_sort += qr.time_no_sort;
         result.time_total += qr.time_total;

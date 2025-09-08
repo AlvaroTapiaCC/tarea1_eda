@@ -12,6 +12,7 @@ struct queryResult {
     long long time_no_sort;
     long long time_total;
     vector<const float*> neighbors;
+    vector<size_t> neighbors_idxs;
     float avg_distance;
 };
 
@@ -36,7 +37,7 @@ private:
 public:
     SimSearch(const Matrix &data, const Matrix &queries, const Matrix &centroids, Cluster &clusters) : mat_data(data), mat_queries(queries), mat_clusters(centroids), clus(clusters) {};
     queryResult directSearch (const float* query, int m);
-    queryResult searchWithClusters (const float*, int m, int k);
+    queryResult searchWithClusters (const float*, int m);
     experimentResult runExperiment (int m, int k);
 };
 

@@ -1,6 +1,9 @@
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import umap
+
+'''
 
 n_vectors = 1000
 n_queries = 100
@@ -28,12 +31,21 @@ inds_2 = [6,7,24,27,32,60,70,77,79,87,91,93,96,97,103,116,122,136,140,167,171,17
 
 np.save('data_eda.npy', data)
 np.save('queries_eda.npy', queries)
+'''
 
+data = np.load("../data_eda.npy")
+queries = np.load("../queries_eda.npy")
+
+neighbors = np.loadtxt("../neighbors.csv", dtype=int)
+query = queries[0]
 
 plt.scatter(data[:,0], data[:,1], color = 'red')
 plt.scatter(queries[:,0], queries[:,1], color = 'blue')
+plt.scatter(query[0], query[1], color = 'blue', s = 100, marker = 'x', label = 'Test Query')
+plt.scatter(data[neighbors, 0], data[neighbors, 1], color = 'green', label = 'Neighbors')
 # plt.scatter(clusters[:,0], clusters[:,1], color = 'blue')
 # plt.scatter(data[inds_1,0], data[inds_1,1], color = 'green')
 # plt.scatter(data[inds_2,0], data[inds_2,1], color = 'yellow')
+plt.legend()
 plt.title('Data Visualization')
-plt.show()
+plt.savefig('../metrics/plot.png')
