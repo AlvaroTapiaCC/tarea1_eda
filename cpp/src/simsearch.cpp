@@ -20,8 +20,6 @@ queryResult SimSearch::directSearch(const float* query, int m) {
     result.time_total = 0;
     result.neighbors.reserve(m);
 
-    long long sort_comparisons = 0;
-
     auto start_srch = high_resolution_clock::now();
 
     for (size_t i = 0; i < N; i++) {
@@ -37,15 +35,13 @@ queryResult SimSearch::directSearch(const float* query, int m) {
 
     auto start_sort = high_resolution_clock::now();
 
-    partialArgsort(distances, indexes, N, m, &sort_comparisons);
-    quickArgsort(distances, indexes, N, m, &sort_comparisons);
+    mainSort(distances, indexes, N, m);
 
     auto end_sort = high_resolution_clock::now();
     auto sort_time = duration_cast<microseconds>(end_sort - start_sort).count();
 
     result.time_no_sort = srch_time;
     result.time_total = srch_time + sort_time;
-    result.comparisons += sort_comparisons;
 
     for (int i = 0; i < m; i++) {
         result.neighbors.push_back(mat_data.getRow(indexes[i]));
