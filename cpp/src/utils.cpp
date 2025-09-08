@@ -58,36 +58,54 @@ int getRandomInt(int min, int max){
 }
 
 
-void int_swap(size_t* B, int i, int j){
+void swap(size_t* B, int i, int j){
 	size_t aux = B[i];
 	B[i] = B[j];
 	B[j] = aux;
 }
 
-void float_swap(float* A, int i, int j){
-	size_t aux = A[i];
-	A[i] = A[j];
-	A[j] = aux;
-}
+int split(float* A, size_t* B, int i, int j, long long* comparisons ){
+	int p = getRandomInt(i, j);
 
-int split(float* A, size_t* B, int i, int j){
-    int p = getRandomInt(i, j);
-    
-	while (i < j){
-        while (i < p && A[i] <= A[p]){
-            i = i + 1;
+	while (true) {
+        (*comparisons)++;
+        if (i >= j) {
+            break;
         }
-        while (j > p && A[j] >= A[p]){
-            j = j - 1;
+        while (true) {
+            (*comparisons)++;
+            if (i >= p) {
+               break;
+            }
+            (*comparisons)++;
+            if (A[B[i]] <= A[B[p]]) {
+                i++;
+            } else {
+                break;
+            }
         }
-        float_swap(A, i, j);
-        int_swap(B, i, j);
+        while (true) {
+            (*comparisons)++;
+            if (j <= p) {
+               break;
+            }
+            (*comparisons)++;
+            if (A[B[j]] >= A[B[p]]) {
+                j--;
+            } else {
+                break;
+            }
+        }
+        swap(B, i, j);
 
+        (*comparisons)++;
         if (i == p) {
             p = j;
-        }
-        else if (j == p){
-            p = i;
+        } else {
+            (*comparisons)++;
+            if (j == p) {
+                p = i;
+            }
         }    
     }  	
 	return p;
@@ -95,40 +113,32 @@ int split(float* A, size_t* B, int i, int j){
 
 //quickSort adjusted to sort the indexes array
 
-void quickArgsort(float* A, size_t* B, int i, int j){
+void quickArgsort(float* A, size_t* B, int i, int j, long long* comparisons){
 	if (i < j){
-		int k = split(A, B, i, j);
-		quickArgsort(A, B, i, k-1);
-		quickArgsort(A, B, k + 1, j);
+		int k = split(A, B, i, j, comparisons);
+		quickArgsort(A, B, i, k-1, comparisons);
+		quickArgsort(A, B, k + 1, j, comparisons);
 	}
 }
 
-void quickArgsort(float* A, size_t* B, int n){
-	quickArgsort(A, B, 0, n - 1);
+void quickArgsort(float* A, size_t* B, int n, long long* comparisons){
+	quickArgsort(A, B, 0, n - 1, comparisons);
 }
 
-void partialArgsort(float* A, size_t* B, int i, int j, int k){
-	int p = split(A, B, i, j);
-	if (k == p){
-		return;
-	}
-	else if (k < p){
-		partialArgsort(A, B, i, p-1, k);
-	}
-	else {
-		partialArgsort(A, B, p+1, j, k);
-	}
+//pseudo k_smalls that leaves the k closest vectors in the beginning of the array, not sorted
+
+void partialArgsort(float* A, size_t* B, int i, int j, int k, long long* comparisons) {
+    int p = split(A, B, i, j, comparisons);
+
+    if (k == p) {
+        return;
+    } else if (k < p) {
+        return partialArgsort(A, B, i, p-1, k, comparisons);
+    } else {
+        return partialArgsort(A, B, p+1, j, k, comparisons);
+    }
 }
 
-void partialArgsort(float* A, size_t* B, int n, int k){
-	partialArgsort(A, B, 0, n-1, k);
-}
-
-void mainSort(float* A, size_t* B, int i, int j, int k){
-    partialArgsort(A, B, i, j, k);
-    quickArgsort(A, B, i, k);
-}
-
-void mainSort(float* A, size_t* B, int n, int k){
-    mainSort(A, B, 0, n-1, k);
+void partialArgsort(float* A, size_t* B, size_t n, int k, long long* comparisons) {
+    return partialArgsort(A, B, 0, n-1, k, comparisons);
 }

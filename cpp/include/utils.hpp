@@ -17,22 +17,16 @@ void print_array(const float *array, size_t d);
 
 int getRandomInt(int min, int max);
 
-void int_swap(size_t* A, int i, int j);
-
-void float_swap(float* B, int i, int j);
+void swap(size_t* A, int i, int j);
 
 int split(float* A, size_t* B, int i, int j);
 
-void partialArgsort(float* A, size_t* B, int i, int j, int k);
+void partialArgsort(float* A, size_t* B, int i, int j, int k, long long* c);
 
-void partialArgsort(float* A, size_t* B, int n, int k);
+void partialArgsort(float* A, size_t* B, size_t n, int k, long long* c);
 
-void quickArgsort(float* A, size_t* B, int i, int j);
+void quickArgsort(float* A, size_t* B, int i, int j, long long* c);
 
-void quickArgsort(float* A, size_t* B, int n);
-
-void mainSort(float* A, size_t* B, int i, int j, int k);
-
-void mainSort(float* A, size_t* B, int n, int k);
+void quickArgsort(float* A, size_t* B, int n, long long* c);
 
 #endif
