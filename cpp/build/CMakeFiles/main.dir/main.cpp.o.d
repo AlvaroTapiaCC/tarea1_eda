@@ -151,4 +151,5 @@ CMakeFiles/main.dir/main.cpp.o: /home/eda/tarea1/cpp/main.cpp \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
- /home/eda/tarea1/cpp/include/simsearch.hpp
+ /home/eda/tarea1/cpp/include/simsearch.hpp \
+ /home/eda/tarea1/cpp/include/cluster.hpp

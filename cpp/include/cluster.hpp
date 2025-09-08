@@ -16,7 +16,7 @@ class Cluster{
         void update_centroids();
         void applyClustering();
         const float *getCentroid(size_t i);
-        std::vector<size_t> getInds(size_t i);
+        std::vector<size_t> getInds(size_t i) const;
         void print_clusters() const;
         virtual ~Cluster();
 };

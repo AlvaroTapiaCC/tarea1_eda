@@ -167,4 +167,5 @@ CMakeFiles/main.dir/src/simsearch.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
  /home/eda/tarea1/cpp/include/simsearch.hpp \
- /home/eda/tarea1/cpp/include/matrix.hpp
+ /home/eda/tarea1/cpp/include/matrix.hpp \
+ /home/eda/tarea1/cpp/include/cluster.hpp
