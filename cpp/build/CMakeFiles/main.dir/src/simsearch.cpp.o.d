@@ -1,5 +1,5 @@
 CMakeFiles/main.dir/src/simsearch.cpp.o: \
- /home/eda/tarea1/cpp/src/simsearch.cpp /usr/include/stdc-predef.h \
+ /home/eda/tarea1_eda/cpp/src/simsearch.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -159,8 +159,8 @@ CMakeFiles/main.dir/src/simsearch.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
  /usr/include/c++/13/bits/fstream.tcc \
- /home/eda/tarea1/cpp/include/matrix.hpp \
- /home/eda/tarea1/cpp/include/utils.hpp /usr/include/c++/13/cmath \
+ /home/eda/tarea1_eda/cpp/include/matrix.hpp \
+ /home/eda/tarea1_eda/cpp/include/utils.hpp /usr/include/c++/13/cmath \
  /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
@@ -170,6 +170,6 @@ CMakeFiles/main.dir/src/simsearch.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /home/eda/tarea1/cpp/include/simsearch.hpp \
- /home/eda/tarea1/cpp/include/matrix.hpp \
- /home/eda/tarea1/cpp/include/cluster.hpp
+ /home/eda/tarea1_eda/cpp/include/simsearch.hpp \
+ /home/eda/tarea1_eda/cpp/include/matrix.hpp \
+ /home/eda/tarea1_eda/cpp/include/cluster.hpp

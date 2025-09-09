@@ -9,7 +9,7 @@
 using namespace std;
 using namespace std::chrono;
 
-queryResult SimSearch::directSearch(const float* query, int m) {
+queryResult SimSearch::directSearch(const float* query, size_t m) {
     size_t N = mat_data.getN();
     size_t dim = mat_data.getDim();
     float* distances = new float[N];
@@ -45,7 +45,7 @@ queryResult SimSearch::directSearch(const float* query, int m) {
     result.time_no_sort = srch_time;
     result.time_total = srch_time + sort_time;
     float total_dist = 0.0;
-    for (int i = 0; i < m; i++) {
+    for (size_t i = 0; i < m; i++) {
         result.neighbors.push_back(mat_data.getRow(indexes[i]));
         result.neighbors_idxs.push_back(indexes[i]);
         total_dist += distances[i];
@@ -57,16 +57,16 @@ queryResult SimSearch::directSearch(const float* query, int m) {
     return result;
 }
 
-queryResult SimSearch::searchWithClusters(const float* query, int m) {
+queryResult SimSearch::searchWithClusters(const float* query, size_t m) {
     size_t N = mat_data.getN();
     size_t K = mat_clusters.getN();
     size_t dim = mat_data.getDim();
     float* cluster_distances = new float[K];
     size_t* cluster_indexes = new size_t[K];
 
-    int count = 0;
-    int clusters_needed = 0;
-    int sizeof_clusters_needed = 0;
+    size_t count = 0;
+    size_t clusters_needed = 0;
+    size_t sizeof_clusters_needed = 0;
     float total_dist = 0.0;
     
     queryResult result;
@@ -95,13 +95,13 @@ queryResult SimSearch::searchWithClusters(const float* query, int m) {
             break;
         }
     }
-    for (int c = 0; c < clusters_needed; c++) {
+    for (size_t c = 0; c < clusters_needed; c++) {
         vector<size_t> inds = clus.getInds(cluster_indexes[c]);
         sizeof_clusters_needed += inds.size();
     }
     float* distances = new float[sizeof_clusters_needed];
     size_t* indexes = new size_t[sizeof_clusters_needed];
-    int idx = 0;
+    size_t idx = 0;
 
     if (m <= clus.getInds(cluster_indexes[0]).size()) {
         vector<size_t> inds = clus.getInds(cluster_indexes[0]);
@@ -123,16 +123,16 @@ queryResult SimSearch::searchWithClusters(const float* query, int m) {
         result.time_no_sort = srch_time;
         result.time_total = srch_time + sort_time;
         
-        for (int i = 0; i < m; i++) {
+        for (size_t i = 0; i < m; i++) {
             result.neighbors.push_back(mat_data.getRow(indexes[i]));
             result.neighbors_idxs.push_back(indexes[i]);
             total_dist += distances[i];
         }
     } else {
-        int remaining = m;
-        for (int c = 0; c < clusters_needed; c++) {
+        size_t remaining = m;
+        for (size_t c = 0; c < clusters_needed; c++) {
             vector<size_t> inds = clus.getInds(cluster_indexes[c]);
-            int take;
+            size_t take;
             if (remaining < inds.size()) {
                 take = remaining;
             } else {
@@ -150,7 +150,7 @@ queryResult SimSearch::searchWithClusters(const float* query, int m) {
             if (take < inds.size()) {
                 mainSort(temp_distances, temp_indexes, inds.size(), take);
             }
-            for (int i = 0; i < take; i++) {
+            for (size_t i = 0; i < take; i++) {
                 distances[idx] = temp_distances[i];
                 indexes[idx] = temp_indexes[i];
                 idx++;
@@ -171,7 +171,7 @@ queryResult SimSearch::searchWithClusters(const float* query, int m) {
         result.time_no_sort = srch_time;
         result.time_total = srch_time + sort_time;
 
-        for (int i = 0; i < m; i++) {
+        for (size_t i = 0; i < m; i++) {
             result.neighbors.push_back(mat_data.getRow(indexes[i]));
             result.neighbors_idxs.push_back(indexes[i]);
             total_dist += distances[i];
@@ -188,7 +188,7 @@ queryResult SimSearch::searchWithClusters(const float* query, int m) {
     return result;
 }
 
-experimentResult SimSearch::runExperiment(int m, int k) {
+experimentResult SimSearch::runExperiment(size_t m, size_t k) {
     experimentResult result;
     result.m = m;
     result.k = k;
@@ -198,6 +198,7 @@ experimentResult SimSearch::runExperiment(int m, int k) {
     result.queries.reserve(mat_queries.getN());
     result.avg_distance = 0.0;
 
+    size_t count = 0;
     size_t num_queries = mat_queries.getN();
     float global_dist = 0.0;
 
@@ -211,12 +212,13 @@ experimentResult SimSearch::runExperiment(int m, int k) {
             qr = searchWithClusters(query, m);
         }
 
-        if (q == 0) {
-            ofstream fout("../../metrics/neighbors.csv");
+        if (count == 0) {
+            ofstream fout("../../metrics/neighbors/neighbors_m" + to_string(m) + "_k" + to_string(k) + ".csv");
             for (size_t i = 0; i < qr.neighbors_idxs.size(); i++) {
                 fout << qr.neighbors_idxs[i] << "\n";
             }
             fout.close();
+            count = 1;
         }
 
         result.total_comparisons += qr.comparisons;

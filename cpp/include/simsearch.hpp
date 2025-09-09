@@ -17,13 +17,14 @@ struct queryResult {
 };
 
 struct experimentResult {
-    int m;
-    int k;
+    size_t m;
+    size_t k;
     long long total_comparisons;
     long long time_no_sort;
     long long time_total;
     vector<queryResult> queries;
     float avg_distance;
+    float error;
 
 };
 
@@ -36,9 +37,9 @@ private:
 
 public:
     SimSearch(const Matrix &data, const Matrix &queries, const Matrix &centroids, Cluster &clusters) : mat_data(data), mat_queries(queries), mat_clusters(centroids), clus(clusters) {};
-    queryResult directSearch (const float* query, int m);
-    queryResult searchWithClusters (const float*, int m);
-    experimentResult runExperiment (int m, int k);
+    queryResult directSearch (const float* query, size_t m);
+    queryResult searchWithClusters (const float*, size_t m);
+    experimentResult runExperiment (size_t m, size_t k);
 };
 
 #endif 

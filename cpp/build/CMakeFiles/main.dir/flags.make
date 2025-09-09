@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/eda/tarea1/cpp/include
+CXX_INCLUDES = -I/home/eda/tarea1_eda/cpp/include
 
 CXX_FLAGS = -std=gnu++11
 

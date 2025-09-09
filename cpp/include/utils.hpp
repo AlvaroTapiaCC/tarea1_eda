@@ -13,26 +13,26 @@ void set_array(float *array, size_t dim, float val = 0);
 
 float vec_compute_avg_dif(const float *u, const float* v,  size_t dim);
 
-void print_array(const float *array, size_t d);
+void prsize_t_array(const float *array, size_t d);
 
-int getRandomInt(int min, int max);
+size_t getRandomsize_t(size_t min, size_t max);
 
-void int_swap(size_t* A, int i, int j);
+void size_t_swap(size_t* A, size_t i, size_t j);
 
-void float_swap(float* B, int i, int j);
+void float_swap(float* B, size_t i, size_t j);
 
-int split(float* A, size_t* B, int i, int j);
+size_t split(float* A, size_t* B, size_t i, size_t j);
 
-void partialArgsort(float* A, size_t* B, int i, int j, int k);
+void partialArgsort(float* A, size_t* B, size_t i, size_t j, size_t k);
 
-void partialArgsort(float* A, size_t* B, int n, int k);
+void partialArgsort(float* A, size_t* B, size_t n, size_t k);
 
-void quickArgsort(float* A, size_t* B, int i, int j);
+void quickArgsort(float* A, size_t* B, size_t i, size_t j);
 
-void quickArgsort(float* A, size_t* B, int n);
+void quickArgsort(float* A, size_t* B, size_t n);
 
-void mainSort(float* A, size_t* B, int i, int j, int k);
+void mainSort(float* A, size_t* B, size_t i, size_t j, size_t k);
 
-void mainSort(float* A, size_t* B, int n, int k);
+void mainSort(float* A, size_t* B, size_t n, size_t k);
 
 #endif

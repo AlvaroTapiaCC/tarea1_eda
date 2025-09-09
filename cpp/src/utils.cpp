@@ -43,7 +43,7 @@ float vec_compute_avg_dif(const float *u, const float* v,  size_t dim){
     return dif / dim;
 }
 
-void print_array(const float *array, size_t d){
+void prsize_t_array(const float *array, size_t d){
     for (size_t i = 0; i< d; i ++){
         std::cout << array[i] << " ";
     }
@@ -52,26 +52,26 @@ void print_array(const float *array, size_t d){
 
 //funciones auxiliares para la ordenacion, sacadas del codigo base mas modificacion propia
 
-int getRandomInt(int min, int max){
+size_t getRandomsize_t(size_t min, size_t max){
 	float a = rand() / static_cast<float>(RAND_MAX);
-	return static_cast<int>(a * (max - min) + min + 0.5);
+	return static_cast<size_t>(a * (max - min) + min + 0.5);
 }
 
 
-void int_swap(size_t* B, int i, int j){
+void size_t_swap(size_t* B, size_t i, size_t j){
 	size_t aux = B[i];
 	B[i] = B[j];
 	B[j] = aux;
 }
 
-void float_swap(float* A, int i, int j){
-	size_t aux = A[i];
+void float_swap(float* A, size_t i, size_t j){
+	float aux = A[i];
 	A[i] = A[j];
 	A[j] = aux;
 }
 
-int split(float* A, size_t* B, int i, int j){
-    int p = getRandomInt(i, j);
+size_t split(float* A, size_t* B, size_t i, size_t j){
+    size_t p = getRandomsize_t(i, j);
     
 	while (i < j){
         while (i < p && A[i] <= A[p]){
@@ -81,7 +81,7 @@ int split(float* A, size_t* B, int i, int j){
             j = j - 1;
         }
         float_swap(A, i, j);
-        int_swap(B, i, j);
+        size_t_swap(B, i, j);
 
         if (i == p) {
             p = j;
@@ -95,40 +95,51 @@ int split(float* A, size_t* B, int i, int j){
 
 //quickSort adjusted to sort the indexes array
 
-void quickArgsort(float* A, size_t* B, int i, int j){
+void quickArgsort(float* A, size_t* B, size_t i, size_t j){
 	if (i < j){
-		int k = split(A, B, i, j);
+		size_t k = split(A, B, i, j);
+        if (k > 0 && k > i) {
 		quickArgsort(A, B, i, k-1);
-		quickArgsort(A, B, k + 1, j);
+        }
+        if (k + 1 <= j) {
+            quickArgsort(A, B, k + 1, j);
+        }
 	}
 }
 
-void quickArgsort(float* A, size_t* B, int n){
+void quickArgsort(float* A, size_t* B, size_t n){
+    if (n == 0) return;
 	quickArgsort(A, B, 0, n - 1);
 }
 
-void partialArgsort(float* A, size_t* B, int i, int j, int k){
-	int p = split(A, B, i, j);
+void partialArgsort(float* A, size_t* B, size_t i, size_t j, size_t k){
+    if (i >= j) return;
+	size_t p = split(A, B, i, j);
 	if (k == p){
 		return;
 	}
-	else if (k < p){
+	else if (k < p && p > 0 && p > i){
 		partialArgsort(A, B, i, p-1, k);
 	}
-	else {
+	else if (p + 1 <= j){
 		partialArgsort(A, B, p+1, j, k);
 	}
 }
 
-void partialArgsort(float* A, size_t* B, int n, int k){
+void partialArgsort(float* A, size_t* B, size_t n, size_t k){
+    if (n == 0 || k >= n) return;
 	partialArgsort(A, B, 0, n-1, k);
 }
 
-void mainSort(float* A, size_t* B, int i, int j, int k){
+void mainSort(float* A, size_t* B, size_t i, size_t j, size_t k){
     partialArgsort(A, B, i, j, k);
-    quickArgsort(A, B, i, k);
+    if (k > 0) {
+        quickArgsort(A, B, i, i + k -1);
+    }
 }
 
-void mainSort(float* A, size_t* B, int n, int k){
+void mainSort(float* A, size_t* B, size_t n, size_t k){
+    if (n == 0 || k == 0) return;
+    if (k > n) k = n;
     mainSort(A, B, 0, n-1, k);
 }

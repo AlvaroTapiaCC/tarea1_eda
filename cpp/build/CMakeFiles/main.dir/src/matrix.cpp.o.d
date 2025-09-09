@@ -1,6 +1,7 @@
-CMakeFiles/main.dir/src/matrix.cpp.o: /home/eda/tarea1/cpp/src/matrix.cpp \
- /usr/include/stdc-predef.h /home/eda/tarea1/cpp/include/matrix.hpp \
- /usr/include/c++/13/iostream /usr/include/c++/13/bits/requires_hosted.h \
+CMakeFiles/main.dir/src/matrix.cpp.o: \
+ /home/eda/tarea1_eda/cpp/src/matrix.cpp /usr/include/stdc-predef.h \
+ /home/eda/tarea1_eda/cpp/include/matrix.hpp /usr/include/c++/13/iostream \
+ /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
